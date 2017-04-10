@@ -37,7 +37,7 @@ class ZundokoController {
     fun post(@ModelAttribute zndk: ZundokoRequest): ModelAndView =
             zndk.list.map<ZnDk, Zundoko> { it }
                     .toMutableList()
-                    .apply { if (zndk.previous != null) this.add(zndk.previous!! as Zundoko) }
+                    .apply { (zndk.previous to this).apply { if (this.first != null) this.second.add(this.first as Zundoko) } }
                     .apply { this.add(zndk.zndk as Zundoko) }
                     .apply { if (this.endsWith(finish)) this.add(ZnDk.Companion) }
                     .let { it.last() to it.apply { this.removeAt(this.lastIndex) }.toList() }

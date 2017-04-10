@@ -15,7 +15,7 @@
     </div>
     <form th:method="post" th:action="@{/}">
         <input type="hidden" name="list" th:each="e: ${zundoko.list}" th:value="${e.value}"/>
-        <input type="hidden" name="previous" th:value="${zundoko.zndk}"/>
+        <input type="hidden" name="previous" th:value="${zundoko.zndk.value}"/>
         <div th:if="${zundoko.isNotFinish()}">
             <button type="submit" name="zndk" value="ズン">ズン</button>
             <button type="submit" name="zndk" value="ドコ">ドコ</button>
