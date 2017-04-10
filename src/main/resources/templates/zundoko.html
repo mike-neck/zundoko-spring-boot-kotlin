@@ -11,10 +11,11 @@
         <h3 th:each="e: ${zundoko.list}" th:text="${e.value}"></h3>
     </div>
     <div th:if="${zundoko.isNotEmpty()}" >
-        <h1 th:text="${zundoko.zndk}"></h1>
+        <h1 th:text="${zundoko.zndk.value}"></h1>
     </div>
     <form th:method="post" th:action="@{/}">
         <input type="hidden" name="list" th:each="e: ${zundoko.list}" th:value="${e.value}"/>
+        <input type="hidden" name="previous" th:value="${zundoko.zndk}"/>
         <div th:if="${zundoko.isNotFinish()}">
             <button type="submit" name="zndk" value="ズン">ズン</button>
             <button type="submit" name="zndk" value="ドコ">ドコ</button>

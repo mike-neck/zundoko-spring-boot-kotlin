@@ -39,6 +39,7 @@ class ZundokoController {
     fun post(@ModelAttribute zndk: ZundokoRequest): ModelAndView =
             zndk.list.map<ZnDk, Zundoko> { it }
                     .toMutableList()
+                    .apply { if (zndk.previous != null) this.add(zndk.previous!! as Zundoko) }
                     .apply { this.add(zndk.zndk as Zundoko) }
                     .apply { if (this.endsWith(finish)) this.add(ZnDk.Companion) }
                     .let { it.last() to it.apply { this.removeAt(this.lastIndex) }.toList() }
@@ -61,11 +62,11 @@ enum class ZnDk: Zundoko {
     }
 }
 
-data class ZundokoRequest(var zndk: ZnDk = ZnDk.ズン, var list: List<ZnDk> = emptyList())
+data class ZundokoRequest(var zndk: ZnDk = ZnDk.ズン, var previous: ZnDk? = null, var list: List<ZnDk> = emptyList())
 
 data class ZundokoResponse(val zndk: Zundoko?, val list: List<Zundoko>) {
-    fun isEmpty(): Boolean = list.isEmpty()
-    fun isNotEmpty(): Boolean = !isEmpty()
+    fun isEmpty(): Boolean = zndk == null
+    fun isNotEmpty(): Boolean = zndk != null
     fun isFinish(): Boolean = when (zndk) {
         null -> false
         is ZnDk.Companion -> true
