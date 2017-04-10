@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja" xmlns:th="http://www.thymeleaf.org">
+<!--/*@thymesVar id="zundoko" type="com.example.ZundokoResponse"*/-->
+<head>
+    <meta charset="UTF-8"/>
+    <title>ズンドコ</title>
+</head>
+<body>
+<div style="margin: 20px;">
+    <div>
+        <h3 th:each="e: ${zundoko.list}" th:text="${e.value}"></h3>
+    </div>
+    <div th:if="${zundoko.isNotEmpty()}" >
+        <h1 th:text="${zundoko.zndk}"></h1>
+    </div>
+    <form th:method="post" th:action="@{/}">
+        <input type="hidden" name="list" th:each="e: ${zundoko.list}" th:value="${e.value}"/>
+        <div th:if="${zundoko.isNotFinish()}">
+            <button type="submit" name="zndk" value="ズン">ズン</button>
+            <button type="submit" name="zndk" value="ドコ">ドコ</button>
+        </div>
+    </form>
+</div>
+</body>
+</html>
