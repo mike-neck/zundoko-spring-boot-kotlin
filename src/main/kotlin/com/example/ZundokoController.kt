@@ -56,7 +56,7 @@ enum class ZnDk: Zundoko {
     ズン, ドコ;
     override val value: String get() = name
     companion object: Zundoko {
-        override val value: String get() = "きよし"
+        override val value: String get() = "き・よ・し！"
     }
 }
 
