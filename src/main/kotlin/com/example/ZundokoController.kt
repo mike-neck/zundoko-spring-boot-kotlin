@@ -23,9 +23,6 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.servlet.ModelAndView
 
-typealias RandomZundokoService = () -> ZnDk
-typealias ZundokoService = (String, List<ZnDk>) -> Pair<Zundoko, List<Zundoko>>
-
 @Controller
 @RequestMapping("/")
 class ZundokoController {
