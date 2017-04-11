@@ -30,4 +30,4 @@ class ZundokoControllerTest {
 }
 
 infix fun <T: Any> T.shouldBe(expected: T): Unit =
-        if (this != expected) throw AssertionError("expected[$expected] but " + "actual[$this]") else Unit
+        if (this != expected) throw AssertionError("expected[$expected] but actual[$this]") else Unit
