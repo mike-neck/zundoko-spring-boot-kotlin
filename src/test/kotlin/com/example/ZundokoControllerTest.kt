@@ -19,11 +19,14 @@ import org.junit.Test
 
 class ZundokoControllerTest {
 
-    val controller = ZundokoController()
+    val controller = ZundokoSpringBootKotlinApplication()
 
     @Test fun ズンだけ渡す(): Unit =
             controller.post(ZundokoRequest()).model["zundoko"]!! shouldBe ZundokoResponse(ZnDk.ズン, listOf())
 
+    @Test fun 最初がズンで次にドコ(): Unit =
+            controller.post(ZundokoRequest(zndk = ZnDk.ドコ, previous = ZnDk.ズン, list = emptyList()))
+                    .model["zundoko"]!! shouldBe ZundokoResponse(ZnDk.ドコ, listOf(ZnDk.ズン))
 }
 
 infix fun <T: Any> T.shouldBe(expected: T): Unit =

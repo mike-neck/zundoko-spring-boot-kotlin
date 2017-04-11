@@ -22,7 +22,7 @@ class ZundokoSpringBootKotlinApplication {
     fun post(@ModelAttribute zndk: ZundokoRequest): ModelAndView =
             zndk.list.map<ZnDk, Zundoko> { it }
                     .toMutableList()
-                    .apply { ((zndk.previous as Zundoko) to this).tap() }
+                    .apply { ((zndk.previous as Zundoko?) to this).tap() }
                     .apply { this.add(zndk.zndk as Zundoko) }
                     .apply { if (this.endsWith(finish)) this.add(ZnDk.Companion) }
                     .let { it.last() to it.apply { this.removeAt(this.lastIndex) }.toList() }
@@ -76,9 +76,9 @@ tailrec fun <T> eq(l: List<T>, r: List<T>, i: Int): Boolean =
         else if (r[i - 1] != l[l.size + i - r.size - 1]) false
         else eq(l, r, i - 1)
 
-val <T : Any> T.unit: Unit get() = Unit
+val <T> T.unit: Unit get() = Unit
 
 fun ok(view: String, model: Map<String, Any>): ModelAndView = ModelAndView(view, model, HttpStatus.OK)
 
-fun <T> Pair<T, MutableList<T>>.tap(): Unit =
-        if (this.first != null) unit else Unit
+fun <T> Pair<T?, MutableList<T>>.tap(): Unit =
+        this.first.apply { if (this != null) this@tap.second.add(this).unit else Unit }.unit
